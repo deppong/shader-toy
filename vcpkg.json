@@ -3,6 +3,7 @@
     "name": "sdl-template",
     "version": "0.0.0",
     "dependencies": [
-        "sdl2"
+        "sdl2",
+        "glew"
     ]
   }

@@ -6,14 +6,13 @@ if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
         CACHE STRING "Vcpkg toolchain file")
 endif()
 
-project(sdl_template LANGUAGES C CXX)
+project(shader LANGUAGES C CXX)
 
 # GLOB RECURSE get all source files, remove or change as needed
 file(
     GLOB_RECURSE SRC_FILES
     ${PROJECT_SOURCE_DIR}/src/*.c
     ${PROJECT_SOURCE_DIR}/src/*.h
-    ${PROJECT_SOURCE_DIR}/src/*.cpp
 )
 add_executable(${PROJECT_NAME} ${SRC_FILES})
 
@@ -26,4 +25,5 @@ endif()
 
 # find and link sdl2
 find_package(SDL2 CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} SDL2::SDL2 SDL2::SDL2main)
+find_package(GLEW REQUIRED)
+target_link_libraries(${PROJECT_NAME} SDL2::SDL2 SDL2::SDL2main GLEW::GLEW)

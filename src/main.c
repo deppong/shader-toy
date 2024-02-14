@@ -71,6 +71,7 @@ int main(void) {
             case SDL_KEYDOWN:  
                 switch (e.key.keysym.sym) {
                     case SDLK_ESCAPE: quit=1; break;
+                    case SDLK_SPACE: program_id = load_shader("../vertex.vert", "../fragment.frag"); break;
                 };
             break;
         }

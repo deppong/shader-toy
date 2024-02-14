@@ -9,6 +9,7 @@
 
 #include "shader_loader.h"
 
+#include <SDL_timer.h>
 #include <SDL_video.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,7 +48,11 @@ int main(void) {
     static const GLfloat vertex_buffer_data[] = {
         -1.0f, -1.0f, 0.0f,
          1.0f, -1.0f, 0.0f,
-         0.0f,  1.0f, 0.0f,
+         1.0f,  1.0f, 0.0f,
+
+         1.0f,  1.0f, 0.0f,
+        -1.0f, -1.0f, 0.0f,
+        -1.0f,  1.0f, 0.0f,
     };
 
     GLuint vertexbuffer;
@@ -73,11 +78,17 @@ int main(void) {
 
         glUseProgram(program_id);
 
+        int iResolution = glGetUniformLocation(program_id, "iResolution");
+        glUniform2f(iResolution, WIDTH, HEIGHT);
+
+        int iTime = glGetUniformLocation(program_id, "iTime");
+        glUniform1f(iTime, (float)SDL_GetTicks() / 1000);
+
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_TRIANGLES, 0, 3*2);
         glDisableVertexAttribArray(0);
 
         SDL_GL_SwapWindow(window);
